@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
 				defaultValue: DataTypes.UUIDV4,
 			},
 		    method:{
-                type: DataTypes.ENUM(`tarjeta`, `efectivo`, `cuentaDeJulio`, `cuentaDeMartin`, `cheques`)
+                type: DataTypes.STRING
             },
 		},
 		{
