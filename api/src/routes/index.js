@@ -3,11 +3,15 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 
 const payMethodRouter = require(`./payMethodRouter`)
+const customerRouter = require(`./customersRouter`)
+const movementsRouter = require(`.//movementsRouter`)
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
 router.use('/paymethods', payMethodRouter)
+router.use('/customers', customerRouter)
+router.use('/movements', movementsRouter)
 
 module.exports = router;

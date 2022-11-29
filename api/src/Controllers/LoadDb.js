@@ -3,7 +3,7 @@ const {PayMethod} = require("../db")
 
 const loadDb = async () => {
    try{
-    console.log(data)
+   // console.log(data)
     for(let i = 0; i < data[0].methods.length;i++){
         PayMethod.create({method: data[0].methods[i]})
     }
