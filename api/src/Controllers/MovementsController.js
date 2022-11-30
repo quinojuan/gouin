@@ -1,8 +1,13 @@
-const {Movements, Customers} = require(`../db.js`)
+const {Movements, Customers, Cheques} = require(`../db.js`);
+
 
 const getMovements = async (req, res) => {
   try{
-    const allMovements = await Movements.findAll()
+    const allMovements = await Movements.findAll(({
+      include: [{
+        model: Cheques
+      }]
+    }))
     res.json(allMovements)
   }catch(err){
     console.log(err);
@@ -11,7 +16,7 @@ const getMovements = async (req, res) => {
 }
 
 const postMovements = async (req, res) => {
-  const {date, price, notes, customerId} = req.body
+  const {date, price, notes, customerId, chequeId} = req.body
   try{
     if(date && price && notes){
       const newMovement = await Movements.create({
@@ -22,7 +27,14 @@ const postMovements = async (req, res) => {
 
       let myCustomer = await Customers.findOne({where: {id: customerId}})
       await newMovement.addCustomers(myCustomer.dataValues.id)
-      console.log(newMovement)
+
+      if(chequeId){
+        let myCheque = await Cheques.findOne({where: {id: chequeId}})
+        await newMovement.addCheque(myCheque.dataValues.id)
+      } else{
+        res.json(newMovement)
+      }
+     // console.log(newMovement)
       res.json(newMovement)
     }else{
       res.status(501).json("faltan datos")

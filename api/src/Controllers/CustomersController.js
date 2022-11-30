@@ -3,7 +3,17 @@ const {Customers, Movements} = require(`../db.js`);
 
 const getCustomers = async (req, res) => {
   try{
-    const allCustomers = await Customers.findAll()
+    const allCustomers = await Customers.findAll(({
+      include: [{
+        model: Movements,
+        attributes: ['id', 
+                     'date',
+                     'price',
+                     'notes',
+                  //  {exclude: ['CustomerMovements']}
+                ]
+      }]
+    }))
     res.json(allCustomers)
   }catch(err){
     console.log(err);
@@ -19,7 +29,7 @@ const postCustomers = async (req, res) => {
         name,
         last_name
       })
-      console.log(newCustomer)
+      //console.log(newCustomer)
       res.json(newCustomer)
     }else{
       res.status(501).json("faltan datos")
