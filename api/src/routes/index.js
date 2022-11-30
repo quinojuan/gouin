@@ -5,6 +5,7 @@ const { Router } = require('express');
 const payMethodRouter = require(`./payMethodRouter`)
 const customerRouter = require(`./customersRouter`)
 const movementsRouter = require(`.//movementsRouter`)
+const chequesRouter = require('./chequesRouter')
 const router = Router();
 
 // Configurar los routers
@@ -13,5 +14,6 @@ const router = Router();
 router.use('/paymethods', payMethodRouter)
 router.use('/customers', customerRouter)
 router.use('/movements', movementsRouter)
+router.use('/cheques', chequesRouter)
 
 module.exports = router;
