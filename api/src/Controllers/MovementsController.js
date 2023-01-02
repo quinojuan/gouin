@@ -1,23 +1,45 @@
-const {Movements, Customers, Cheques} = require(`../db.js`);
+const {Movements, Customers, Cheques, PayMethod, Acts} = require(`../db.js`);
 
 
 const getMovements = async (req, res) => {
   try{
     const allMovements = await Movements.findAll(({
       include: [{
-        model: Cheques
-      }]
+        model: Customers,
+        attributes: ['name']
+      },{
+        model: Acts,
+        attributes: ['act']
+      },{
+        model: Cheques,
+        attributes: ['num_cheque']
+      }
+  ]
     }))
-    res.json(allMovements)
+
+    let presentacion = allMovements.map(({id, date, price, notes, Customers, Acts, Cheques })=>{
+      return {
+        id,
+        date,
+        price,
+        notes,
+        customer: Customers[0].name,
+        act: Acts[0].act,
+        cheque: Cheques[0].num_cheque
+      }
+    })
+    presentacion
+		?res.status(201).json(presentacion)
+		:res.status(404).json({message: 'Error /get movements'})
   }catch(err){
     console.log(err);
     res.status(505).json({message: 'Server error'})
-    
+
   }
 }
 
 const postMovements = async (req, res) => {
-  const {date, price, notes, customerId, chequeId} = req.body
+  const {date, price, notes, actId, customerId, methodId} = req.body
   try{
     if(date && price && notes){
       const newMovement = await Movements.create({
@@ -25,16 +47,25 @@ const postMovements = async (req, res) => {
         price,
         notes,
       })
-
+       
       let myCustomer = await Customers.findOne({where: {id: customerId}})
       await newMovement.addCustomers(myCustomer.dataValues.id)
 
-      if(chequeId){
-        let myCheque = await Cheques.findOne({where: {id: chequeId}})
+      let myAct = await Acts.findOne({where: {id: actId}})
+      await newMovement.addAct(myAct.dataValues.id)
+
+       if(methodId){
+        let myCheque = await Cheques.findOne({where: {id: methodId}})
+        let myMethod = await PayMethod.findOne({where: {id: methodId}})
         await newMovement.addCheque(myCheque.dataValues.id)
-      } else{
-        res.json(newMovement)
-      }
+        /* if(myCheque){
+          await newMovement.addCheque(myCheque.dataValues.id)
+        } else{
+          await newMovement.addPayMethod(myMethod.dataValues.id)
+        } */
+    
+      } 
+      
      // console.log(newMovement)
       res.json(newMovement)
     }else{

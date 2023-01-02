@@ -6,6 +6,7 @@ const payMethodRouter = require(`./payMethodRouter`)
 const customerRouter = require(`./customersRouter`)
 const movementsRouter = require(`.//movementsRouter`)
 const chequesRouter = require('./chequesRouter')
+const actsRouter = require('./actsRouter')
 const router = Router();
 
 // Configurar los routers
@@ -15,5 +16,6 @@ router.use('/paymethods', payMethodRouter)
 router.use('/customers', customerRouter)
 router.use('/movements', movementsRouter)
 router.use('/cheques', chequesRouter)
+router.use('/acts', actsRouter)
 
 module.exports = router;

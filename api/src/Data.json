@@ -1,4 +1,5 @@
 [{
-    "methods" : ["Tarjetas", "Efectivo", "Transferencia a Julio", "Transferencia a Martin", "Cheques"]
+    "methods" : ["Tarjetas", "Efectivo", "Transferencia a Julio", "Transferencia a Martin", "Cheques"],
+    "acts": ["Divorcio", "Inmobiliario", "Automovilistico"]
 }
 ]
