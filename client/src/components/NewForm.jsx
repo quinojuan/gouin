@@ -2,7 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Button, Card, CardContent, Grid, TextField } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  CircularProgress,
+  Grid,
+  TextField,
+} from "@mui/material";
 
 const NewForm = () => {
   const navigate = useNavigate();
@@ -32,41 +39,76 @@ const NewForm = () => {
   return (
     <>
       <h3>New Form</h3>
-      <Grid item xs={3}>
-        <Card
-          sx={{ mt: 5 }}
-          style={{ backgroundColor: "#1e272e", padding: "1rem" }}
-        >
-          <CardContent>
-            <form onSubmit={handleSubmit}>
-              <TextField
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="center"
+        direction="column"
+      >
+        <Grid item xs={3}>
+          <Card
+            sx={{ mt: 5 }}
+            style={{ backgroundColor: "#1e272e", padding: "1rem" }}
+          >
+            <CardContent>
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  variant="filled"
+                  label="Name"
+                  sx={{
+                    display: "block",
+                    margin: ".5rem 0",
+                  }}
+                  name="name"
+                  value={customer.name}
+                  onChange={handleChange}
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                />
+
+                <TextField
+                  variant="filled"
+                  label="Last name"
+                  sx={{
+                    display: "block",
+                    margin: ".5rem 0",
+                  }}
+                  name="last_name"
+                  value={customer.last_name}
+                  onChange={handleChange}
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                />
+
+                <TextField 
                 variant="filled"
-                label="Name"
+                label="Last name"
                 sx={{
                   display: "block",
                   margin: ".5rem 0",
                 }}
-                name="name"
-                value={customer.name}
+                name="last_name"
+                value={customer.last_name}
                 onChange={handleChange}
                 inputProps={{ style: { color: "white" } }}
                 InputLabelProps={{ style: { color: "white" } }}
-              />
-
-              <TextField 
-                variant="filled"
-                label="Last name"
-              />
-              <input
-                name="last_name"
-                type="text"
-                placeholder="Last name"
-                onChange={handleChange}
-              />{" "}
-              <button>Save</button>
-            </form>
-          </CardContent>
-        </Card>
+                />
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={!customer.name || !customer.last_name}
+                >
+                  {loading ? (
+                    <CircularProgress color="inherit" size={24} />
+                  ) : (
+                    "Save"
+                  )}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </Grid>
+        <br />
       </Grid>
       <Button variant="contained" onClick={() => navigate("/home")}>
         Volver
