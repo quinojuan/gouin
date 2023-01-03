@@ -41,7 +41,7 @@ const getMovements = async (req, res) => {
 const postMovements = async (req, res) => {
   const {date, price, notes, actId, customerId, methodId} = req.body
   try{
-    if(date && price && notes){
+    if(date && price && notes){ // las notas son opcionales
       const newMovement = await Movements.create({
         date,
         price,

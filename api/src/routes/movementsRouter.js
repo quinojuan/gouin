@@ -5,7 +5,7 @@ const{
     getMovements,
     postMovements,
     updateMovement
-} = require(`../Controllers//MovementsController`)
+} = require(`../Controllers/MovementsController`)
 
 router.get('/', getMovements);
 router.post('/', postMovements);

@@ -18,6 +18,11 @@ const NewForm = () => {
   const [customer, setCustomer] = useState({
     name: "",
     last_name: "",
+    act: "",
+    price: "",
+    notes: "",
+    amount_paid: 0,
+    payment_method: "",
   });
 
   const handleSubmit = async (e) => {
@@ -25,6 +30,7 @@ const NewForm = () => {
     setLoading(true);
 
     await axios.post("http://localhost:3002/customers", customer);
+    
     setLoading(false);
     navigate("/home");
   };
@@ -36,6 +42,7 @@ const NewForm = () => {
     });
   };
 
+  console.log(customer);
   return (
     <>
       <h3>New Form</h3>
@@ -44,6 +51,7 @@ const NewForm = () => {
         alignItems="center"
         justifyContent="center"
         direction="column"
+        // width="350px"
       >
         <Grid item xs={3}>
           <Card
@@ -53,13 +61,13 @@ const NewForm = () => {
             <CardContent>
               <form onSubmit={handleSubmit}>
                 <TextField
+                  name="name"
                   variant="filled"
                   label="Name"
                   sx={{
                     display: "block",
                     margin: ".5rem 0",
                   }}
-                  name="name"
                   value={customer.name}
                   onChange={handleChange}
                   inputProps={{ style: { color: "white" } }}
@@ -67,36 +75,99 @@ const NewForm = () => {
                 />
 
                 <TextField
+                  name="last_name"
                   variant="filled"
                   label="Last name"
                   sx={{
                     display: "block",
                     margin: ".5rem 0",
                   }}
-                  name="last_name"
                   value={customer.last_name}
                   onChange={handleChange}
                   inputProps={{ style: { color: "white" } }}
                   InputLabelProps={{ style: { color: "white" } }}
                 />
 
-                <TextField 
-                variant="filled"
-                label="Last name"
-                sx={{
-                  display: "block",
-                  margin: ".5rem 0",
-                }}
-                name="last_name"
-                value={customer.last_name}
-                onChange={handleChange}
-                inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
+                <TextField
+                  name="act"
+                  variant="filled"
+                  label="Act"
+                  sx={{
+                    display: "block",
+                    margin: ".5rem 0",
+                  }}
+                  value={customer.act}
+                  onChange={handleChange}
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
                 />
+                <TextField
+                  name="price"
+                  variant="filled"
+                  label="Price"
+                  sx={{
+                    display: "block",
+                    margin: ".5rem 0",
+                  }}
+                  value={customer.price}
+                  onChange={handleChange}
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                />
+                <TextField
+                  name="notes"
+                  variant="filled"
+                  multiline
+                  rows={4}
+                  label="Notes"
+                  sx={{
+                    display: "block",
+                    margin: ".5rem 0",
+                  }}
+                  value={customer.notes}
+                  onChange={handleChange}
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                />
+                <TextField
+                  name="amount_paid"
+                  variant="filled"
+                  label="Amount paid"
+                  sx={{
+                    display: "block",
+                    margin: ".5rem 0",
+                  }}
+                  value={customer.amount_paid}
+                  onChange={handleChange}
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                  />
+
+                <TextField
+                  name="payment_method"
+                  variant="filled"
+                  label="Payment method"
+                  value={customer.method_of_paid}
+                  onChange={handleChange}
+                  sx={{
+                    display: "block",
+                    margin: ".5rem 0",
+                  }}
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                />
+
                 <Button
                   variant="contained"
                   type="submit"
-                  disabled={!customer.name || !customer.last_name}
+                  disabled={
+                    !customer.name ||
+                    !customer.last_name ||
+                    !customer.act ||
+                    !customer.amount_paid ||
+                    !customer.payment_method ||
+                    !customer.price
+                  }
                 >
                   {loading ? (
                     <CircularProgress color="inherit" size={24} />
@@ -110,9 +181,11 @@ const NewForm = () => {
         </Grid>
         <br />
       </Grid>
-      <Button variant="contained" onClick={() => navigate("/home")}>
-        Volver
-      </Button>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button variant="contained" onClick={() => navigate("/home")}>
+          Volver
+        </Button>
+      </div>
     </>
   );
 };
