@@ -8,8 +8,11 @@ import {
   IconButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
 
 const ButtonAppBar = () => {
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ FlexGrow: 1 }}>
       <AppBar position="static">
@@ -26,7 +29,9 @@ const ButtonAppBar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Escribanía GOUIN
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="warning" variant="contained" onClick={() => navigate("/new")}>
+            New
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
