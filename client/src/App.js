@@ -1,9 +1,10 @@
-import './App.css';
+import "./App.css";
+import ButtonAppBar from "./components/ButtonAppBar";
 
 function App() {
   return (
     <div className="App">
-      <h1>Gouin Dashboard</h1>
+      <ButtonAppBar />
     </div>
   );
 }
