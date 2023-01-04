@@ -156,6 +156,19 @@ const NewForm = () => {
                   inputProps={{ style: { color: "white" } }}
                   InputLabelProps={{ style: { color: "white" } }}
                 />
+                <TextField
+                  name="saldo"
+                  variant="filled"
+                  label="Saldo"
+                  value={"$ 50000"}
+                  onChange={handleChange}
+                  sx={{
+                    display: "block",
+                    margin: ".5rem 0",
+                  }}
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                />
 
                 <Button
                   variant="contained"

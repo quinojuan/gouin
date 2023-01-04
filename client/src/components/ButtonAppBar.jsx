@@ -29,8 +29,20 @@ const ButtonAppBar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Escribanía GOUIN
           </Typography>
-          <Button color="warning" variant="contained" onClick={() => navigate("/new")}>
+          <Button
+            color="warning"
+            variant="contained"
+            onClick={() => navigate("/new")}
+          >
             New
+          </Button>
+          &nbsp;
+          <Button
+            color="success"
+            variant="contained"
+            onClick={() => navigate("/saldo")}
+          >
+            Agregar pago
           </Button>
         </Toolbar>
       </AppBar>
