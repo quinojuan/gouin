@@ -44,6 +44,9 @@ PayMethod.belongsToMany(Movements, {through: 'MovementPayMethod', foreignKey: 'P
 
 Movements.belongsToMany(Acts, {through: 'MovementAct', foreignKey: 'MovementId'})
 Acts.belongsToMany(Movements, {through: 'MovementAct', foreignKey: 'ActId'})
+
+Customers.belongsToMany(Acts, {through: 'CustomerAct', foreignKey: 'CustomerId'})
+Acts.belongsToMany(Customers, {through: 'CustomerAct', foreignKey: 'ActId'})
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 

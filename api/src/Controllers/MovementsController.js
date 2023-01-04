@@ -10,14 +10,14 @@ const getMovements = async (req, res) => {
       },{
         model: Acts,
         attributes: ['act']
-      },{
-        model: Cheques,
-        attributes: ['num_cheque']
-      }
+      }/* ,{
+        model: PayMethod,
+        attributes:['method']
+      } */
   ]
     }))
 
-    let presentacion = allMovements.map(({id, date, price, notes, Customers, Acts, Cheques })=>{
+    let presentacion = allMovements.map(({id, date, price, notes, Customers, Acts, PayMethod })=>{
       return {
         id,
         date,
@@ -25,7 +25,7 @@ const getMovements = async (req, res) => {
         notes,
         customer: Customers[0].name,
         act: Acts[0].act,
-        cheque: Cheques[0].num_cheque
+        //method: PayMethod[0].method
       }
     })
     presentacion
@@ -53,18 +53,19 @@ const postMovements = async (req, res) => {
 
       let myAct = await Acts.findOne({where: {id: actId}})
       await newMovement.addAct(myAct.dataValues.id)
+      //aca asocio el act al customer=
+      await myCustomer.addAct(myAct.dataValues.id)
 
-       if(methodId){
+     // let myMethod = await PayMethod.findOne({where: {id: methodId}})
+     // await newMovement.addCheque(myMethod.dataValues.id)
+   /*     if(methodId){
         let myCheque = await Cheques.findOne({where: {id: methodId}})
-        let myMethod = await PayMethod.findOne({where: {id: methodId}})
-        await newMovement.addCheque(myCheque.dataValues.id)
-        /* if(myCheque){
+         if(myCheque){
           await newMovement.addCheque(myCheque.dataValues.id)
         } else{
           await newMovement.addPayMethod(myMethod.dataValues.id)
-        } */
-    
-      } 
+        } 
+      }  */
       
      // console.log(newMovement)
       res.json(newMovement)
