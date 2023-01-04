@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
 	sequelize.define(
-		'Customers',
+		'CustomerAct',
 		{
 			id: {
 				type: DataTypes.UUID,
@@ -10,16 +10,16 @@ module.exports = (sequelize) => {
 				primaryKey: true,
 				defaultValue: DataTypes.UUIDV4,
 			},
-			name: {
-				type: DataTypes.STRING,
-			},
-            last_name:{
+			CustomerId:{
                 type: DataTypes.STRING,
+                allowNull: false,
+                primaryKey: false
             },
-			dni:{
-				type: DataTypes.STRING,
-			}
-
+            ActId:{
+                type: DataTypes.STRING,
+                allowNull: false,
+                primaryKey: false
+            },
 		},
 		{
 			freezeTableName: true,

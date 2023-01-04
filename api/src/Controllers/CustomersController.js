@@ -1,4 +1,4 @@
-const {Customers, Movements} = require(`../db.js`);
+const {Customers, Movements, Acts} = require(`../db.js`);
 
 
 const getCustomers = async (req, res) => {
@@ -12,6 +12,8 @@ const getCustomers = async (req, res) => {
                      'notes',
                   //  {exclude: ['CustomerMovements']}
                 ]
+      },{
+        model: Acts
       }]
     }))
     res.json(allCustomers)
@@ -22,12 +24,13 @@ const getCustomers = async (req, res) => {
 }
 
 const postCustomers = async (req, res) => {
-  const {name, last_name} = req.body
+  const {name, last_name, dni} = req.body
   try{
-    if(name && last_name){
+    if(name && last_name && dni){
       const newCustomer = await Customers.create({
         name,
-        last_name
+        last_name,
+        dni
       })
       //console.log(newCustomer)
       res.json(newCustomer)
