@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import "./SearchBar.css";
+// import "./SearchBar.css";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import { useEffect } from "react";
+import axios from "axios";
 
-function SearchBar({ placeholder, data }) {
+function SearchBar() {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
+  const [data, setData] = useState([]);
 
   const handleFilter = (e) => {
     const searchWord = e.target.value;
     setWordEntered(searchWord);
-    const newFilter = data.filter((value) => {
+    const newFilter = data?.filter((value) => {
       return value.title.toLowerCase().includes(searchWord.toLowerCase());
     });
     if (searchWord === "") {
@@ -22,13 +25,29 @@ function SearchBar({ placeholder, data }) {
 
   const clearInput = () => {
     setFilteredData([]);
-    setWordEntered("")
+    setWordEntered("");
   };
 
+  const getData = async () => {
+    const data = await axios("http://localhost:3002/customers");
+    console.log(data);
+    setData(data);
+  };
+
+  
+//   useEffect(() => {
+//     getData();
+//   }, []);
   return (
     <div className="search">
       <div className="searchInputs">
-        <input type="text" placeholder={placeholder} value={wordEntered} onChange={handleFilter} />
+        <button onClick={getData}>probar axios</button>
+        <input
+          type="text"
+          placeholder="Ingrese un nombre"
+          value={wordEntered}
+          onChange={handleFilter}
+        />
         <div className="searchIcon">
           {filteredData.length == 0 ? (
             <SearchIcon />
