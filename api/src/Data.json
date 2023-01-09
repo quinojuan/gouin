@@ -1,5 +1,39 @@
-[{
-    "methods" : ["Tarjetas", "Efectivo", "Transferencia a Julio", "Transferencia a Martin", "Cheques"],
+[
+  {
+    "methods": [
+      "Tarjetas",
+      "Efectivo",
+      "Transferencia a Julio",
+      "Transferencia a Martin",
+      "Cheques"
+    ],
     "acts": ["Divorcio", "Inmobiliario", "Automovilistico"]
-}
+  },
+  { "users": [
+    {
+        "name":"Sara",
+        "last_name": "Bringas",
+        "dni": "30654987"
+    },
+    {
+        "name":"Juan",
+        "last_name": "Quino",
+        "dni": "30592648"
+    },
+    {
+        "name":"Gonzalo",
+        "last_name": "Ferragut",
+        "dni": "28255644"
+    },
+    {
+        "name":"Alejandro",
+        "last_name": "Perez",
+        "dni": "32005888"
+    },
+    {
+        "name":"Julio",
+        "last_name": "Gouin",
+        "dni": "25366448"
+    }
+  ] }
 ]
