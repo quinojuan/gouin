@@ -8,7 +8,7 @@ import {
   IconButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const ButtonAppBar = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const ButtonAppBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Escribanía GOUIN
+            <Link to={"/home"}>Escribanía GOUIN</Link>
           </Typography>
           <Button
             color="warning"
@@ -43,6 +43,14 @@ const ButtonAppBar = () => {
             onClick={() => navigate("/saldo")}
           >
             Agregar pago
+          </Button>
+          &nbsp;
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => navigate("/search")}
+          >
+            Buscar Cliente
           </Button>
         </Toolbar>
       </AppBar>

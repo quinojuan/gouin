@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import "./SearchBar.css";
+import "./SearchBar.css";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import { useEffect } from "react";
@@ -14,11 +14,12 @@ function SearchBar() {
     const searchWord = e.target.value;
     setWordEntered(searchWord);
     const newFilter = data?.filter((value) => {
-      return value.title.toLowerCase().includes(searchWord.toLowerCase());
+      return value.name.toLowerCase().includes(searchWord.toLowerCase());
     });
     if (searchWord === "") {
       setFilteredData([]);
     } else {
+      console.log("Soy el newFilter", newFilter);
       setFilteredData(newFilter);
     }
   };
@@ -29,19 +30,17 @@ function SearchBar() {
   };
 
   const getData = async () => {
-    const data = await axios("http://localhost:3002/customers");
-    console.log(data);
-    setData(data);
+    const response = await axios("http://localhost:3002/customers"); // seguir viendo porq  no anda este axios
+    setData(response.data);
   };
 
-  
-//   useEffect(() => {
-//     getData();
-//   }, []);
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div className="search">
       <div className="searchInputs">
-        <button onClick={getData}>probar axios</button>
         <input
           type="text"
           placeholder="Ingrese un nombre"
@@ -49,23 +48,18 @@ function SearchBar() {
           onChange={handleFilter}
         />
         <div className="searchIcon">
-          {filteredData.length == 0 ? (
+          {filteredData?.length == 0 ? (
             <SearchIcon />
           ) : (
             <CloseIcon id="clearBtn" onClick={clearInput} />
           )}
         </div>
       </div>
-      {filteredData.length != 0 && (
+      {filteredData?.length != 0 && (
         <div className="dataResult">
-          {filteredData.slice(0, 15).map((value, key) => {
-            //slice to show just 15 books
-            return (
-              <a className="dataItem" href={value.link} target="_blank">
-                {" "}
-                <p>{value.title} </p>
-              </a>
-            );
+          {filteredData.slice(0, 3).map((value, key) => {
+            //slice to show just 3 results
+            return <p key={key}>{value.name} </p>;
           })}
         </div>
       )}
